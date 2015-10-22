@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
+ *
  * Created by InDenProCom on 10/20/2015.
  */
   public class CommonRobotInfo extends OpMode
@@ -34,10 +35,21 @@ import com.qualcomm.robotcore.util.ElapsedTime;
             motorLeft.setPower(power);
             motorRight.setPower(-power);
         }
-
         motorLeft.setPower(0);
         motorRight.setPower(0);
 
+    }
+    public void moveUsingEncoders(int moveValue, double power)
+    {
+        int encoderValueL = motorLeft.getCurrentPosition();
+        int  encoderValueR = motorRight.getCurrentPosition();
+        while(encoderValueL > moveValue && encoderValueR > moveValue)
+        {
+            motorLeft.setPower(power);
+            motorRight.setPower(-power);
+            encoderValueL = motorLeft.getCurrentPosition();
+            encoderValueR = motorRight.getCurrentPosition();
+        }
     }
     public void turn(double rPower, double lPower, long time )
     {
