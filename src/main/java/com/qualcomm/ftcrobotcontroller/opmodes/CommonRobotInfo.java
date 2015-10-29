@@ -3,6 +3,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
@@ -41,15 +42,12 @@ import com.qualcomm.robotcore.util.ElapsedTime;
     }
     public void moveUsingEncoders(int moveValue, double power)
     {
-        int encoderValueL = motorLeft.getCurrentPosition();
-        int  encoderValueR = motorRight.getCurrentPosition();
-        while(encoderValueL > moveValue && encoderValueR > moveValue)
-        {
-            motorLeft.setPower(power);
-            motorRight.setPower(-power);
-            encoderValueL = motorLeft.getCurrentPosition();
-            encoderValueR = motorRight.getCurrentPosition();
-        }
+        motorRight.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        motorLeft.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        motorRight.setTargetPosition(moveValue);
+        motorLeft.setTargetPosition(moveValue);
+        motorLeft.setPower(power);
+        motorLeft.setPower(power);
     }
     public void turn(double rPower, double lPower, long time )
     {

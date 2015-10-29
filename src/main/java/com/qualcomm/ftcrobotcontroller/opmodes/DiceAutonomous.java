@@ -45,8 +45,9 @@ public class DiceAutonomous extends LinearOpMode
             }
             else
             {
-                motorRight.setPower(0);
                 motorLeft.setPower(0);
+                motorRight.setPower(0);
+
             }
         }
 

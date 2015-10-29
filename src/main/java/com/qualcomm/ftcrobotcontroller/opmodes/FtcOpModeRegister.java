@@ -59,6 +59,8 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("K9TeleOp", K9TeleOp.class);
     manager.register ("DiceAutonomous", DiceAutonomous.class);
     manager.register ("DiceTeleop", DiceTeleop.class);
+    manager.register ("Mount Teleop", MoveToMount.class);
+    manager.register ("Repair Zone", MoveToRepairZone.class);
 
 
 
