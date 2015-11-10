@@ -8,7 +8,7 @@ import com.qualcomm.ftcrobotcontroller.opmodes.CommonRobotInfo;
 
 
 /**
- * Created by InDenProCom on 9/24/2015.
+ * Created by Emmy on 9/24/2015.
  */
 public class DiceAutonomous extends LinearOpMode
 {
@@ -16,8 +16,8 @@ public class DiceAutonomous extends LinearOpMode
     DcMotor motorLeft = robot.getMotorLeft();
     DcMotor motorRight = robot.getMotorRight();
     //ColorSensor cSensor = robot.getColorSensor();
-    DcMotor buttonLeft = robot.getButtonRight();
-    DcMotor buttonRight = robot.getButtonLeft();
+    //DcMotor buttonLeft = robot.getButtonRight();
+    ///DcMotor buttonRight = robot.getButtonLeft();
 
     public void runOpMode() throws InterruptedException
     {
@@ -26,9 +26,11 @@ public class DiceAutonomous extends LinearOpMode
         while(opModeIsActive())
         {
             robot.moveForward(.5, 5000);
-            robot.turn(.3, .8, 5000);
-            robot.moveForward(.5, 5000);
-            robot.turn(.3, .8, 5000);
+            robot.sleep(1000);
+            robot.turn(-.5, 5);
+
+            /*robot.moveForward(.5, 5000);
+            robot.turn(.3, .8);
             robot.moveForward(.5, 5000);
             double bValue = robot.getColorBlue();
             double rValue = robot.getColorRed();
@@ -49,7 +51,8 @@ public class DiceAutonomous extends LinearOpMode
                 motorRight.setPower(0);
 
             }
-        }
+       */ }
+
 
     }
 }

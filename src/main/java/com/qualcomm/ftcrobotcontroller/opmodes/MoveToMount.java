@@ -45,14 +45,14 @@ public class MoveToMount extends LinearOpMode
  public void  runOpMode() throws InterruptedException
   {
     waitForStart();
-    //while(opModeIsActive())
-    //{
-      robot.moveForward(.4, 2000); //change to move using encoders //move one tile
-      robot.turn(.4, .6, 2000); // turn to face it
-      robot.moveForward(.4, 2000); //change to move using encoders
+    while(opModeIsActive())
+    {
+      robot.moveUsingEncoders(5, .5); //change correct value for moving one tile
+      robot.turn(.4, .6); // turn to face mount
+      robot.moveUsingEncoders(5, .5); //change to correct value for moving up mountain
 
 
-    //}
+    }
 
 
   }
