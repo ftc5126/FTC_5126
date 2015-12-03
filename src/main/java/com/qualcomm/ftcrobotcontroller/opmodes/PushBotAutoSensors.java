@@ -21,6 +21,32 @@ public class PushBotAutoSensors extends PushBotTelemetrySensors
     // PushBotAutoSensors
     //
     /**
+     * This class member remembers which state is currently active.  When the
+     * start method is called, the state will be initialize (0).  During the
+     * first iteration of the loop method, the state will change from initialize
+     * to state_1.  When state_1 actions are complete, the state will change to
+     * state_2.  This implements a state machine for the loop method.
+     */
+    private int v_state = 0;
+
+    //--------------------------------------------------------------------------
+    //
+    // start
+    //
+    /**
+     * This class member remembers which state is currently active.  When the
+     * start method is called, the state will be initialize (0).  During the
+     * first iteration of the loop method, the state will change from initialize
+     * to state_1.  When state_1 actions are complete, the state will change to
+     * state_2.  This implements a state machine for the loop method.
+     */
+    private int v_arm_state = 0;
+
+    //--------------------------------------------------------------------------
+    //
+    // loop
+    //
+    /**
      * Construct the class.
      *
      * The system calls this member when the class is instantiated.
@@ -42,8 +68,9 @@ public class PushBotAutoSensors extends PushBotTelemetrySensors
 
     //--------------------------------------------------------------------------
     //
-    // start
+    // update_arm_state
     //
+
     /**
      * Perform any actions that are necessary when the OpMode is enabled.
      *
@@ -66,8 +93,9 @@ public class PushBotAutoSensors extends PushBotTelemetrySensors
 
     //--------------------------------------------------------------------------
     //
-    // loop
+    // v_state
     //
+
     /**
      * Implement a state machine that controls the robot during auto-operation.
      * The state machine uses a class member and sensor input to transition
@@ -287,8 +315,9 @@ public class PushBotAutoSensors extends PushBotTelemetrySensors
 
     //--------------------------------------------------------------------------
     //
-    // update_arm_state
+    // v_arm_state
     //
+
     /**
      * Implement a state machine that controls the arm during auto-operation.
      */
@@ -340,31 +369,5 @@ public class PushBotAutoSensors extends PushBotTelemetrySensors
         }
 
     } // update_arm_state
-
-    //--------------------------------------------------------------------------
-    //
-    // v_state
-    //
-    /**
-     * This class member remembers which state is currently active.  When the
-     * start method is called, the state will be initialize (0).  During the
-     * first iteration of the loop method, the state will change from initialize
-     * to state_1.  When state_1 actions are complete, the state will change to
-     * state_2.  This implements a state machine for the loop method.
-     */
-    private int v_state = 0;
-
-    //--------------------------------------------------------------------------
-    //
-    // v_arm_state
-    //
-    /**
-     * This class member remembers which state is currently active.  When the
-     * start method is called, the state will be initialize (0).  During the
-     * first iteration of the loop method, the state will change from initialize
-     * to state_1.  When state_1 actions are complete, the state will change to
-     * state_2.  This implements a state machine for the loop method.
-     */
-    private int v_arm_state = 0;
 
 } // PushBotAutoSensors

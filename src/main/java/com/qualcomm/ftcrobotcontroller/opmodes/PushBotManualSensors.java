@@ -21,6 +21,22 @@ public class PushBotManualSensors extends PushBotTelemetrySensors
     //
     // PushBotManualSensors
     //
+    //--------------------------------------------------------------------------
+    //
+    // v_raise_arm_automatically
+    //
+    //--------
+    // This class member remembers whether the 'Y' button has been pressed AND
+    // released.  The arm is only driven when the button has been pressed AND
+    // released to avoid the phenomena where a humans hand holds the button for
+    // multiple iterations of the loop method.
+    //--------
+    private boolean v_raise_arm_automatically = false;
+
+    //--------------------------------------------------------------------------
+    //
+    // loop
+    //
     /**
      * Construct the class.
      *
@@ -41,10 +57,6 @@ public class PushBotManualSensors extends PushBotTelemetrySensors
 
     } // PushBotManualSensors
 
-    //--------------------------------------------------------------------------
-    //
-    // loop
-    //
     /**
      * Implement a state machine that controls the robot during
      * manual-operation.  The state machine uses gamepad and sensor input to
@@ -174,17 +186,5 @@ public class PushBotManualSensors extends PushBotTelemetrySensors
         telemetry.addData ("19", "Left arm command: " + l_arm_command);
 
     } // loop
-
-    //--------------------------------------------------------------------------
-    //
-    // v_raise_arm_automatically
-    //
-    //--------
-    // This class member remembers whether the 'Y' button has been pressed AND
-    // released.  The arm is only driven when the button has been pressed AND
-    // released to avoid the phenomena where a humans hand holds the button for
-    // multiple iterations of the loop method.
-    //--------
-    private boolean v_raise_arm_automatically = false;
 
 } // PushBotManualSensors

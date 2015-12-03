@@ -30,6 +30,60 @@ public class PushBotHardwareSensors extends PushBotTelemetry
     // PushBotHardwareSensors
     //
     /**
+     * Drive toward the IR beacon.
+     */
+    final int drive_to_ir_beacon_not_detected = -2;
+
+    //--------------------------------------------------------------------------
+    //
+    // init
+    //
+    final int drive_to_ir_beacon_invalid = -1; // Unknown failure
+
+    //--------------------------------------------------------------------------
+    //
+    // is_touch_sensor_pressed
+    //
+    final int drive_to_ir_beacon_running = 0;
+
+    //--------------------------------------------------------------------------
+    //
+    // move_arm_upward_until_touch
+    //
+    final int drive_to_ir_beacon_done = 1;
+
+    //--------------------------------------------------------------------------
+    //
+    // a_ir_angle
+    //
+    /**
+     * Manage the touch sensor.
+     */
+    private TouchSensor v_sensor_touch;
+
+    //--------------------------------------------------------------------------
+    //
+    // a_ir_strength
+    //
+    /**
+     * Manage the infra-red sensor.
+     */
+    private IrSeekerSensor v_sensor_ir;
+
+    //--------------------------------------------------------------------------
+    //
+    // a_ir_angles_and_strengths
+    //
+    /**
+     * Manage the optical distance sensor.
+     */
+    private OpticalDistanceSensor v_sensor_ods;
+
+    //--------------------------------------------------------------------------
+    //
+    // drive_to_ir_beacon
+    //
+    /**
      * Construct the class.
      *
      * The system calls this member when the class is instantiated.
@@ -49,10 +103,6 @@ public class PushBotHardwareSensors extends PushBotTelemetry
 
     } // PushBotHardwareSensors
 
-    //--------------------------------------------------------------------------
-    //
-    // init
-    //
     /**
      * Perform any actions that are necessary when the OpMode is enabled.
      *
@@ -131,10 +181,6 @@ public class PushBotHardwareSensors extends PushBotTelemetry
 
     } // init
 
-    //--------------------------------------------------------------------------
-    //
-    // is_touch_sensor_pressed
-    //
     /**
      * Indicate whether the touch sensor has been pressed.
      */
@@ -152,10 +198,6 @@ public class PushBotHardwareSensors extends PushBotTelemetry
 
     } // is_touch_sensor_pressed
 
-    //--------------------------------------------------------------------------
-    //
-    // move_arm_upward_until_touch
-    //
     /**
      * Apply upward power to the arm motor until the touch sensor is pressed.
      */
@@ -184,10 +226,6 @@ public class PushBotHardwareSensors extends PushBotTelemetry
 
     } // move_arm_upward_until_touch
 
-    //--------------------------------------------------------------------------
-    //
-    // a_ir_angle
-    //
     /**
      * Access the IR sensor's estimated angle.
      */
@@ -207,8 +245,9 @@ public class PushBotHardwareSensors extends PushBotTelemetry
 
     //--------------------------------------------------------------------------
     //
-    // a_ir_strength
+    // a_ods_light_detected
     //
+
     /**
      * Access the IR sensor's estimated strength level.
      */
@@ -228,8 +267,9 @@ public class PushBotHardwareSensors extends PushBotTelemetry
 
     //--------------------------------------------------------------------------
     //
-    // a_ir_angles_and_strengths
+    // a_ods_white_tape_detected
     //
+
     /**
      * Access the IR sensor's angle and strength levels.
      */
@@ -252,15 +292,9 @@ public class PushBotHardwareSensors extends PushBotTelemetry
 
     //--------------------------------------------------------------------------
     //
-    // drive_to_ir_beacon
+    // v_sensor_touch
     //
-    /**
-     * Drive toward the IR beacon.
-     */
-    final int drive_to_ir_beacon_not_detected = -2;
-    final int drive_to_ir_beacon_invalid = -1; // Unknown failure
-    final int drive_to_ir_beacon_running = 0;
-    final int drive_to_ir_beacon_done = 1;
+
     int drive_to_ir_beacon ()
 
     {
@@ -315,8 +349,9 @@ public class PushBotHardwareSensors extends PushBotTelemetry
 
     //--------------------------------------------------------------------------
     //
-    // a_ods_light_detected
+    // v_sensor_ir
     //
+
     /**
      * Access the amount of light detected by the Optical Distance Sensor.
      */
@@ -336,8 +371,9 @@ public class PushBotHardwareSensors extends PushBotTelemetry
 
     //--------------------------------------------------------------------------
     //
-    // a_ods_white_tape_detected
+    // v_sensor_ods
     //
+
     /**
      * Access whether the EOP is detecting white tape.
      */
@@ -367,32 +403,5 @@ public class PushBotHardwareSensors extends PushBotTelemetry
         return l_return;
 
     } // a_ods_white_tape_detected
-
-    //--------------------------------------------------------------------------
-    //
-    // v_sensor_touch
-    //
-    /**
-     * Manage the touch sensor.
-     */
-    private TouchSensor v_sensor_touch;
-
-    //--------------------------------------------------------------------------
-    //
-    // v_sensor_ir
-    //
-    /**
-     * Manage the infra-red sensor.
-     */
-    private IrSeekerSensor v_sensor_ir;
-
-    //--------------------------------------------------------------------------
-    //
-    // v_sensor_ods
-    //
-    /**
-     * Manage the optical distance sensor.
-     */
-    private OpticalDistanceSensor v_sensor_ods;
 
 } // PushBotHardwareSensors

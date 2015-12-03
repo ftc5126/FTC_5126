@@ -61,8 +61,7 @@ import com.qualcomm.ftccommon.LaunchActivityConstantsList;
 import com.qualcomm.ftccommon.Restarter;
 import com.qualcomm.ftccommon.UpdateUI;
 import com.qualcomm.ftcrobotcontroller.opmodes.FtcOpModeRegister;
-import com.qualcomm.hardware.ModernRoboticsHardwareFactory;
-import com.qualcomm.robotcore.hardware.HardwareFactory;
+import com.qualcomm.hardware.HardwareFactory;
 import com.qualcomm.robotcore.hardware.configuration.Utility;
 import com.qualcomm.robotcore.util.Dimmer;
 import com.qualcomm.robotcore.util.ImmersiveMode;
@@ -75,19 +74,15 @@ import java.io.Serializable;
 
 public class FtcRobotControllerActivity extends Activity {
 
+  public static final String CONFIGURE_FILENAME = "CONFIGURE_FILENAME";
   private static final int REQUEST_CONFIG_WIFI_CHANNEL = 1;
   private static final boolean USE_DEVICE_EMULATION = false;
   private static final int NUM_GAMEPADS = 2;
-
-  public static final String CONFIGURE_FILENAME = "CONFIGURE_FILENAME";
-
   protected SharedPreferences preferences;
 
   protected UpdateUI.Callback callback;
   protected Context context;
-  private Utility utility;
   protected ImageButton buttonMenu;
-
   protected TextView textDeviceName;
   protected TextView textWifiDirectStatus;
   protected TextView textRobotStatus;
@@ -95,23 +90,12 @@ public class FtcRobotControllerActivity extends Activity {
   protected TextView textOpMode;
   protected TextView textErrorMessage;
   protected ImmersiveMode immersion;
-
   protected UpdateUI updateUI;
   protected Dimmer dimmer;
   protected LinearLayout entireScreenLayout;
-
   protected FtcRobotControllerService controllerService;
-
   protected FtcEventLoop eventLoop;
-
-  protected class RobotRestarter implements Restarter {
-
-    public void requestRestart() {
-      requestRobotRestart();
-    }
-
-  }
-
+  private Utility utility;
   protected ServiceConnection connection = new ServiceConnection() {
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
@@ -174,7 +158,7 @@ public class FtcRobotControllerActivity extends Activity {
 
     hittingMenuButtonBrightensScreen();
 
-    if (USE_DEVICE_EMULATION) { ModernRoboticsHardwareFactory.enableDeviceEmulation(); }
+    if (USE_DEVICE_EMULATION) { HardwareFactory.enableDeviceEmulation(); }
   }
 
   @Override
@@ -235,7 +219,6 @@ public class FtcRobotControllerActivity extends Activity {
       immersion.cancelSystemUIHide();
     }
   }
-
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
@@ -298,7 +281,6 @@ public class FtcRobotControllerActivity extends Activity {
           utility.updateHeader(Utility.NO_FILE, R.string.pref_hardware_config_filename, R.id.active_filename, R.id.included_header);
         }
       }
-
     }
   }
 
@@ -322,7 +304,7 @@ public class FtcRobotControllerActivity extends Activity {
     HardwareFactory factory;
 
     // Modern Robotics Factory for use with Modern Robotics hardware
-    ModernRoboticsHardwareFactory modernRoboticsFactory = new ModernRoboticsHardwareFactory(context);
+    HardwareFactory modernRoboticsFactory = new HardwareFactory(context);
     modernRoboticsFactory.setXmlInputStream(fis);
     factory = modernRoboticsFactory;
 
@@ -382,5 +364,13 @@ public class FtcRobotControllerActivity extends Activity {
         toast.show();
       }
     });
+  }
+
+  protected class RobotRestarter implements Restarter {
+
+    public void requestRestart() {
+      requestRobotRestart();
+    }
+
   }
 }

@@ -10,6 +10,8 @@ public class DiceTeleop extends OpMode {
 
     DcMotor left;
     DcMotor right;
+    DcMotor lift;
+    DcMotor drum;
     double leftPower;
     double rightPower;
 

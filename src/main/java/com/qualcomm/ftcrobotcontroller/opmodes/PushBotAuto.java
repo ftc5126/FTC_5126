@@ -20,6 +20,19 @@ public class PushBotAuto extends PushBotTelemetry
     // PushBotAuto
     //
     /**
+     * This class member remembers which state is currently active.  When the
+     * start method is called, the state will be initialized (0).  When the loop
+     * starts, the state will change from initialize to state_1.  When state_1
+     * actions are complete, the state will change to state_2.  This implements
+     * a state machine for the loop method.
+     */
+    private int v_state = 0;
+
+    //--------------------------------------------------------------------------
+    //
+    // start
+    //
+    /**
      * Construct the class.
      *
      * The system calls this member when the class is instantiated.
@@ -41,8 +54,9 @@ public class PushBotAuto extends PushBotTelemetry
 
     //--------------------------------------------------------------------------
     //
-    // start
+    // loop
     //
+
     /**
      * Perform any actions that are necessary when the OpMode is enabled.
      *
@@ -59,14 +73,15 @@ public class PushBotAuto extends PushBotTelemetry
         //
         // Reset the motor encoders on the drive wheels.
         //
-        reset_drive_encoders ();
+        reset_drive_encoders();
 
     } // start
 
     //--------------------------------------------------------------------------
     //
-    // loop
+    // v_state
     //
+
     /**
      * Implement a state machine that controls the robot during auto-operation.
      * The state machine uses a class member and encoder input to transition
@@ -211,18 +226,5 @@ public class PushBotAuto extends PushBotTelemetry
         telemetry.addData ("18", "State: " + v_state);
 
     } // loop
-
-    //--------------------------------------------------------------------------
-    //
-    // v_state
-    //
-    /**
-     * This class member remembers which state is currently active.  When the
-     * start method is called, the state will be initialized (0).  When the loop
-     * starts, the state will change from initialize to state_1.  When state_1
-     * actions are complete, the state will change to state_2.  This implements
-     * a state machine for the loop method.
-     */
-    private int v_state = 0;
 
 } // PushBotAuto
