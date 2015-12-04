@@ -24,5 +24,11 @@ public class DiceTeleop extends TeleopRobotInfo {
 
         motorLeft.setPower(leftPower);
         motorRight.setPower(rightPower);
+        moveLift(gamepad1.right_trigger - gamepad1.left_trigger);
+        lowerLift((gamepad1.b ? 1 : 0) * .3);
+        if (gamepad1.a)
+        {
+            hookDown();
+        }
     }
 }

@@ -9,59 +9,20 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  *
  * Created by InDenProCom on 10/20/2015.
  */
-  public abstract class TeleopRobotInfo extends OpMode implements RobotInfo
+public abstract class TeleopRobotInfo extends OpMode implements RobotInfo
 {
+    public void hookDown()
+    {
+        hookServo.setPosition(HOOK_SERVO_DOWN);
+    }
 
-    public void moveForward (double power, long time)
+    public void moveLift(double power)
     {
+        drum.setPower(power);
+    }
 
-        ElapsedTime eTime = new ElapsedTime();
-
-        while (eTime.time() < time)
-        {
-            motorLeft.setPower(power);
-            motorRight.setPower(-power);
-        }
-        motorLeft.setPower(0);
-        motorRight.setPower(0);
-
-    }
-    public void moveUsingEncoders(int moveValue, double power)
+    public void lowerLift (double power)
     {
-        motorRight.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
-        motorLeft.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
-        motorRight.setTargetPosition(moveValue);
-        motorLeft.setTargetPosition(moveValue);
-        motorLeft.setPower(power);
-        motorLeft.setPower(power);
+        lift.setPower(power);
     }
-    public void turn(double rPower, double lPower)
-    {
-        motorLeft.setPower(rPower);
-        motorRight.setPower(lPower);
-        sleep(10);
-        motorLeft.setPower(0);
-        motorRight.setPower(0);
-    }
-    public void sleep(long mill)
-    {
-        ElapsedTime eTime = new ElapsedTime();
-        while(eTime.time() < mill)
-        {
-            motorLeft.setPower(0);
-            motorRight.setPower(0);
-        }
-    }
-    public double getColorAlpha() { return cSensor.alpha(); }
-    public double getColorBlue() { return cSensor.blue(); }
-    public double getColorRed() { return cSensor.red(); }
-    public DcMotor getMotorLeft()
-    {
-        return motorLeft;
-    }
-    public DcMotor getMotorRight()
-    {
-        return motorRight;
-    }
-    public ColorSensor getColorSensor() { return cSensor; }
 }
