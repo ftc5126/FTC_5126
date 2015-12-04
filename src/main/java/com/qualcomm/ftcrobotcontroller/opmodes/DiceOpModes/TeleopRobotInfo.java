@@ -1,27 +1,16 @@
-package com.qualcomm.ftcrobotcontroller.opmodes;
+package com.qualcomm.ftcrobotcontroller.opmodes.DiceOpModes;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
 /**
  *
  * Created by InDenProCom on 10/20/2015.
  */
-  public class CommonRobotInfo extends LinearOpMode
+  public abstract class TeleopRobotInfo extends OpMode implements RobotInfo
 {
-    DcMotor motorLeft = hardwareMap.dcMotor.get("motorLeft");
-    DcMotor motorRight = hardwareMap.dcMotor.get("motorRight");
-    ColorSensor cSensor = hardwareMap.colorSensor.get("cSensor");
-    DcMotor buttonLeft = hardwareMap.dcMotor.get("buttonLeft");
-    DcMotor buttonRight = hardwareMap.dcMotor.get("buttonRight");
-    public void runOpMode()
-    {
-
-    }
-
 
     public void moveForward (double power, long time)
     {
@@ -74,7 +63,5 @@ import com.qualcomm.robotcore.util.ElapsedTime;
     {
         return motorRight;
     }
-    public DcMotor getButtonLeft() { return buttonLeft; }
-    public DcMotor getButtonRight() { return buttonRight; }
     public ColorSensor getColorSensor() { return cSensor; }
 }

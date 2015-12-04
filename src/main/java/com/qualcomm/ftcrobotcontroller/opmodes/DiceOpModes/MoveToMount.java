@@ -29,27 +29,26 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
-package com.qualcomm.ftcrobotcontroller.opmodes;
+package com.qualcomm.ftcrobotcontroller.opmodes.DiceOpModes;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.ftcrobotcontroller.opmodes.DiceOpModes.AutonomousRobotInfo;
+
 /**
  * TeleOp Mode
  * <p>
  *Enables control of the robot via the gamepad
  */
-public class MoveToMount extends LinearOpMode
+public class MoveToMount extends AutonomousRobotInfo
 {
 
-  CommonRobotInfo robot = new CommonRobotInfo();
  public void  runOpMode() throws InterruptedException
   {
     waitForStart();
     while(opModeIsActive())
     {
-      robot.moveUsingEncoders(5, .5); //change correct value for moving one tile
-      robot.turn(.4, .6); // turn to face mount
-      robot.moveUsingEncoders(5, .5); //change to correct value for moving up mountain
+      moveUsingEncoders(5, .5); //change correct value for moving one tile
+      turn(.4, .6); // turn to face mount
+      moveUsingEncoders(5, .5); //change to correct value for moving up mountain
 
 
     }
