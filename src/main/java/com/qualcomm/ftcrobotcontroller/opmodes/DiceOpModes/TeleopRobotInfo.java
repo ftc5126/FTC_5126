@@ -25,4 +25,6 @@ public abstract class TeleopRobotInfo extends OpMode implements RobotInfo
     {
         lift.setPower(power);
     }
+
+
 }

@@ -34,4 +34,4 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <resources>
    <usb-device product-id="24577" vendor-id="1027" /> <!-- FT232 Modern Robotics -->
 </resources>
-<!-- From: file:/C:/ftc-5126-2015-competition/FTC_5126/src/main/res/xml/device_filter.xml -->
+<!-- From: file:/C:/Users/InDenProCom/Documents/GitHub/FTC_5126/src/main/res/xml/device_filter.xml -->
