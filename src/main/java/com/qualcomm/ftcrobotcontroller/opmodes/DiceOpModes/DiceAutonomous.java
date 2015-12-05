@@ -10,14 +10,16 @@ import com.qualcomm.ftcrobotcontroller.opmodes.DiceOpModes.AutonomousRobotInfo;
  */
 public class DiceAutonomous extends AutonomousRobotInfo
 {
-
+    //curently this is set up for going up the mountain
     public void runOpMode() throws InterruptedException
     {
         waitForStart();
 
         while(opModeIsActive())
         {
-
+            moveUsingEncoders(5,.5 );
+            turn(.4, .6);
+            moveUsingEncoders(5, .5);
         }
 
 

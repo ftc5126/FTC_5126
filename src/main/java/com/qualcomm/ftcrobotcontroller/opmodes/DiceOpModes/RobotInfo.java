@@ -17,4 +17,5 @@ public interface RobotInfo {
     DcMotor lift = hardwareMap.dcMotor.get("lift");
     DcMotor drum = hardwareMap.dcMotor.get("drum");
     final int HOOK_SERVO_DOWN = 0;
+
 }
