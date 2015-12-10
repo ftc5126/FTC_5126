@@ -12,10 +12,10 @@ public interface RobotInfo {
     HardwareMap hardwareMap = new HardwareMap();
     DcMotor motorLeft = hardwareMap.dcMotor.get("motorLeft");
     DcMotor motorRight = hardwareMap.dcMotor.get("motorRight");
-    Servo hookServo = hardwareMap.servo.get("hookServo");
-    ColorSensor cSensor = hardwareMap.colorSensor.get("cSensor");
-    DcMotor lift = hardwareMap.dcMotor.get("lift");
-    DcMotor drum = hardwareMap.dcMotor.get("drum");
+//    Servo hookServo = hardwareMap.servo.get("hookServo");
+//    ColorSensor cSensor = hardwareMap.colorSensor.get("cSensor");
+//    DcMotor lift = hardwareMap.dcMotor.get("lift");
+//    DcMotor drum = hardwareMap.dcMotor.get("drum");
     final int HOOK_SERVO_DOWN = 0;
 
 }

@@ -17,25 +17,25 @@ public class PushBeacon extends AutonomousRobotInfo
             moveForward(.5, 5000);
             turn(.3, .8);
             moveForward(.5, 5000);
-            double bValue = getColorBlue();
-            double rValue = getColorRed();
-            telemetry.addData("Color Sensor Blue value:" ,Double.toString(bValue));
-            telemetry.addData("Color Sensor Red value:" ,Double.toString(rValue));
-            if (bValue > 0)
-            {
-//                buttonLeft.setPower(1);
-
-            }
-            else if (rValue > 0)
-            {
-//                buttonRight.setPower(1);
-            }
-            else
-            {
-                motorLeft.setPower(0);
-                motorRight.setPower(0);
-
-            }
+//            double bValue = cSensor.blue();
+//            double rValue = cSensor.red();
+//            telemetry.addData("Color Sensor Blue value:" ,Double.toString(bValue));
+//            telemetry.addData("Color Sensor Red value:" ,Double.toString(rValue));
+//            if (bValue > 0)
+//            {
+////                buttonLeft.setPower(1);
+//
+//            }
+//            else if (rValue > 0)
+//            {
+////                buttonRight.setPower(1);
+//            }
+//            else
+//            {
+//                motorLeft.setPower(0);
+//                motorRight.setPower(0);
+//
+//            }
 
         }
     }

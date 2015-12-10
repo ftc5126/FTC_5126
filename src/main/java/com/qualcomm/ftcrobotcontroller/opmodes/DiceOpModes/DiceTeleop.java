@@ -24,18 +24,19 @@ public class DiceTeleop extends TeleopRobotInfo {
 
         motorLeft.setPower(leftPower);
         motorRight.setPower(rightPower);
-        moveLift(gamepad1.right_trigger - gamepad1.left_trigger);
-        lowerLift((gamepad1.b ? 1 : 0) * .3);
-        if (gamepad1.a && hookServo.getPosition() != 0) //when a pressed and if servo is not at bottom
-        {
-            hookDown();
-        }
-        else if(gamepad1.a && hookServo.getPosition() == 0) //when a pressed and servo is at bottom
-        {
-            hookOut();
-        }
-
-
-
+//        moveLift(gamepad1.right_trigger - gamepad1.left_trigger);
+//        lowerLift((gamepad1.b ? 1 : 0) * .3);
+//        if (gamepad1.a && hookServo.getPosition() != 0) //when a pressed and if servo is not at bottom
+//        {
+//            hookDown();
+//        }
+//        else if(gamepad1.a && hookServo.getPosition() == 0) //when a pressed and servo is at bottom
+//        {
+//            hookOut();
+//        }
+//        telemetry.addData("output joystick right y value",gamepad1.right_stick_y);
+//        telemetry.addData("output joystick left y value",gamepad1.left_stick_y);
+//        telemetry.addData("output joystick right x value",gamepad1.right_stick_x);
+//        telemetry.addData("output joystick left x value",gamepad1.left_stick_x);
     }
 }

@@ -15,7 +15,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
     final int  CIRCUMFRENCE_OF_WHEELS = 15;
     public double convertToInches(int ticks)
     {
-       int inches = ticks * (1/ 15);
+       double inches = ticks * (0.1/ 15);
         return inches;
     }
 
@@ -59,9 +59,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
             motorRight.setPower(0);
         }
     }
-    public double getColorAlpha() { return cSensor.alpha(); }
-    public double getColorBlue() { return cSensor.blue(); }
-    public double getColorRed() { return cSensor.red(); }
+//    public double getColorAlpha() { return cSensor.alpha(); }
+//    public double getColorBlue() { return cSensor.blue(); }
+//    public double getColorRed() { return cSensor.red(); }
     public DcMotor getMotorLeft()
     {
         return motorLeft;
@@ -70,5 +70,5 @@ import com.qualcomm.robotcore.util.ElapsedTime;
     {
         return motorRight;
     }
-    public ColorSensor getColorSensor() { return cSensor; }
+//    public ColorSensor getColorSensor() { return cSensor; }
 }

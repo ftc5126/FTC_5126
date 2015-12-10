@@ -11,24 +11,21 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 public abstract class TeleopRobotInfo extends OpMode implements RobotInfo
 {
-    public void hookDown()
-    {
-        hookServo.setPosition(HOOK_SERVO_DOWN);
-    }
-
-    public void moveLift(double power)
-    {
-        drum.setPower(power);
-    }
-
-    public void lowerLift (double power)
-    {
-        lift.setPower(power);
-    }
-
-    public void hookOut() { hookServo.setPosition(90);}
-
-
-
+//    public void hookDown()
+//    {
+//        hookServo.setPosition(HOOK_SERVO_DOWN);
+//    }
+//
+//    public void moveLift(double power)
+//    {
+//        drum.setPower(power);
+//    }
+//
+//    public void lowerLift (double power)
+//    {
+//        lift.setPower(power);
+//    }
+//
+//    public void hookOut() { hookServo.setPosition(90);}
 
 }
