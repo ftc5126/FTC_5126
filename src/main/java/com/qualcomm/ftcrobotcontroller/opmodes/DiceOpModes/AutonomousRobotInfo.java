@@ -12,12 +12,15 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
   public abstract class AutonomousRobotInfo extends LinearOpMode implements RobotInfo
 {
+<<<<<<< HEAD
     final int  CIRCUMFRENCE_OF_WHEELS = 15;
     public double convertToInches(int ticks)
     {
        double inches = ticks * (0.1/ 15);
         return inches;
     }
+=======
+>>>>>>> parent of 79cdd54... added convertToInches method
 
     public void moveForward (double power, long time)
     {
