@@ -49,10 +49,14 @@ public class K9TankDrive extends OpMode {
 	 * Also, as the claw servo approaches 0, the claw opens up (drops the game element).
 	 */
     // TETRIX VALUES.
-    final static double ARM_MIN_RANGE  = 0.20;
-    final static double ARM_MAX_RANGE  = 0.90;
-    final static double CLAW_MIN_RANGE  = 0.20;
-    final static double CLAW_MAX_RANGE  = 0.7;
+	final double ARM_RIGHT = 1;
+	final double ARM_LEFT = 0;
+	final double ARM_DEFAULT = .5;
+	final double HOOK_DOWN = .23;
+	final double HOOK_UP = 1;
+	final static double CLAW_MIN_RANGE = 0.20;
+	final static double CLAW_MAX_RANGE  = 0.7;
+	boolean toggle = false;
 
 	// position of the arm servo.
 	double armPosition;
@@ -68,8 +72,11 @@ public class K9TankDrive extends OpMode {
 
 	DcMotor motorRight;
 	DcMotor motorLeft;
-	Servo claw;
-	Servo arm;
+	DcMotor lift;
+	DcMotor winch;
+	Servo hook;
+//	Servo arm;//no
+
 
 	/**
 	 * Constructor
@@ -92,21 +99,25 @@ public class K9TankDrive extends OpMode {
 		 */
 
 		/*
-		 * For the demo Tetrix K9 bot we assume the following,
+		 * For the is on the left side of the bot.
+		 * demo Tetrix K9 bot we assume the following,
 		 *   There are two motors "motor_1" and "motor_2"
 		 *   "motor_1" is on the right side of the bot.
-		 *   "motor_2" is on the left side of the bot.
-		 *
+		 *   "motor_2"
 		 * We also assume that there are two servos "servo_1" and "servo_6"
 		 *    "servo_1" controls the arm joint of the manipulator.
 		 *    "servo_6" controls the claw joint of the manipulator.
 		 */
-		motorRight = hardwareMap.dcMotor.get("motor_2");
-		motorLeft = hardwareMap.dcMotor.get("motor_1");
+		motorRight = hardwareMap.dcMotor.get("motor2");
+		motorLeft = hardwareMap.dcMotor.get("motor1");
+		lift = hardwareMap.dcMotor.get("lift"); //arm up and down
+		winch = hardwareMap.dcMotor.get("winch"); //arm left and right
+		hook = hardwareMap.servo.get("hook");
+//		arm = hardwareMap.servo.get("arm");
 		motorLeft.setDirection(DcMotor.Direction.REVERSE);
 
-		arm = hardwareMap.servo.get("servo_1");
-		claw = hardwareMap.servo.get("servo_6");
+//		arm = hardwareMap.servo.get("servo_1");
+//		claw = hardwareMap.servo.get("servo_6");
 
 		// assign the starting position of the wrist and claw
 		armPosition = 0.2;
@@ -130,64 +141,72 @@ public class K9TankDrive extends OpMode {
 
         // tank drive
         // note that if y equal -1 then joystick is pushed all of the way forward.
-        float left = -gamepad1.left_stick_y;
-        float right = -gamepad1.right_stick_y;
+		float left = gamepad1.left_stick_y;
+//            if (left < .3 && left > -.3)
+//            {
+//                left = 0;
+//            }
+		float right = gamepad1.right_stick_y;
 
 		// clip the right/left values so that the values never exceed +/- 1
-		right = Range.clip(right, -1, 1);
-		left = Range.clip(left, -1, 1);
+//		right = Range.clip(right, -1, 1);
+//		left = Range.clip(left, -1, 1);
 
 		// scale the joystick value to make it easier to control
 		// the robot more precisely at slower speeds.
 		right = (float)scaleInput(right);
 		left =  (float)scaleInput(left);
+		if (left < .15 && left > -.15) {
+			left = 0;
+		}
 
 		// write the values to the motors
 		motorRight.setPower(right);
 		motorLeft.setPower(left);
 
-		// update the position of the arm.
-		if (gamepad1.a) {
-			// if the A button is pushed on gamepad1, increment the position of
-			// the arm servo.
-			armPosition += armDelta;
-		}
-
-		if (gamepad1.y) {
-			// if the Y button is pushed on gamepad1, decrease the position of
-			// the arm servo.
-			armPosition -= armDelta;
-		}
-
-        // update the position of the claw
-        if (gamepad1.left_bumper) {
-            clawPosition += clawDelta;
-        }
-
-        if (gamepad1.left_trigger > 0.25) {
-            clawPosition -= clawDelta;
-        }
-
-        if (gamepad1.b) {
-            clawPosition -= clawDelta;
-        }
-
-		// update the position of the claw
-		if (gamepad1.x) {
-			clawPosition += clawDelta;
-		}
-
+		winch.setPower(-gamepad1.right_trigger + gamepad1.left_trigger);
+//    hook.setPosition(1 - gamepad1.right_trigger);
 		if (gamepad1.b) {
-			clawPosition -= clawDelta;
+			if (!toggle) {
+				if (hook.getPosition() > .7) {
+					hook.setPosition(HOOK_DOWN);
+				} else {
+					hook.setPosition(HOOK_UP);
+				}
+				toggle = true;
+			}
+		} else {
+			toggle = false;
 		}
+
+
+		if (gamepad1.a) {
+			lift.setPower(-.17);
+		} else if (gamepad1.y) {
+			lift.setPower(.17);
+		} else {
+			lift.setPower(0);
+		}
+
+		// update the position of the arm.
+//		if (gamepad1.left_bumper) {
+//            arm.setPosition(ARM_RIGHT);
+//		}
+//		else if (gamepad1.right_bumper) {
+//            arm.setPosition(ARM_LEFT);
+//		}
+//        else
+//        {
+//            arm.setPosition(ARM_DEFAULT);
+//        }
+
 
 		// clip the position values so that they never exceed their allowed range.
-		armPosition = Range.clip(armPosition, ARM_MIN_RANGE, ARM_MAX_RANGE);
-		clawPosition = Range.clip(clawPosition, CLAW_MIN_RANGE, CLAW_MAX_RANGE);
+
 
 		// write position values to the wrist and claw servo
-		arm.setPosition(armPosition);
-		claw.setPosition(clawPosition);
+//		arm.setPosition(armPosition);
+//		claw.setPosition(clawPosition);
 
 		/*
 		 * Send telemetry data back to driver station. Note that if we are using

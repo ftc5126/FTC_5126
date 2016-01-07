@@ -31,7 +31,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
-import com.qualcomm.ftcrobotcontroller.opmodes.DiceOpModes.DiceAutonomous;
+//import com.qualcomm.ftcrobotcontroller.opmodes.DiceOpModes.com.qualcomm.ftcrobotcontroller.opmodes.DiceAutonomous;
 import com.qualcomm.ftcrobotcontroller.opmodes.DiceOpModes.DiceTeleop;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
@@ -60,8 +60,8 @@ public class FtcOpModeRegister implements OpModeRegister {
 //    manager.register("NullOp", NullOp.class);
 
     //manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
-    manager.register("Dice Teleop", DiceTeleop.class);
-    manager.register("Dice Autonomous", DiceAutonomous.class);
+//    manager.register("Dice Teleop", DiceTeleop.class);
+////    manager.register("Dice Autonomous", com.qualcomm.ftcrobotcontroller.opmodes.DiceAutonomous.class);
 //    manager.register ("PushBotAuto", PushBotAuto.class);
 //    manager.register ("PushBotManual", PushBotManual.class);
 
@@ -82,7 +82,8 @@ public class FtcOpModeRegister implements OpModeRegister {
 
     //manager.register("NxtTeleOp", NxtTeleOp.class);
 
-    //manager.register("LinearK9TeleOp", LinearK9TeleOp.class);
+    manager.register("TankDrive", K9TankDrive.class);
+    manager.register("Autonomous", DiceAutonomous.class);
     //manager.register("LinearIrExample", LinearIrExample.class);
 
 

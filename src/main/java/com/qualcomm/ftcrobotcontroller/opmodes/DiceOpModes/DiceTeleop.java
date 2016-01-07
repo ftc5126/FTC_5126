@@ -1,14 +1,17 @@
 package com.qualcomm.ftcrobotcontroller.opmodes.DiceOpModes;
 
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
-import com.qualcomm.ftcrobotcontroller.opmodes.DiceOpModes.TeleopRobotInfo;
+//import com.qualcomm.ftcrobotcontroller.opmodes.DiceOpModes.TeleopRobotInfo;
 /**
  * Created by InDenProCom on 10/13/2015.
  */
-public class DiceTeleop extends TeleopRobotInfo {
+public class DiceTeleop extends OpMode {
 
+    DcMotor motorLeft = hardwareMap.dcMotor.get("Left");
+    DcMotor motorRight = hardwareMap.dcMotor.get("Right");
     double leftPower;
     double rightPower;
 
