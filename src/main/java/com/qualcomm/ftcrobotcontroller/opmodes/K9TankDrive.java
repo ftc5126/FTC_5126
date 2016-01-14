@@ -49,79 +49,43 @@ public class K9TankDrive extends OpMode {
 	 * Also, as the claw servo approaches 0, the claw opens up (drops the game element).
 	 */
     // TETRIX VALUES.
-	final double ARM_RIGHT = 1;
-	final double ARM_LEFT = 0;
-	final double ARM_DEFAULT = .5;
 	final double HOOK_DOWN = .23;
 	final double HOOK_UP = 1;
-	final static double CLAW_MIN_RANGE = 0.20;
-	final static double CLAW_MAX_RANGE  = 0.7;
-	boolean toggle = false;
-
-	// position of the arm servo.
-	double armPosition;
-
-	// amount to change the arm servo position.
-	double armDelta = 0.1;
-
-	// position of the claw servo
-	double clawPosition;
-
-	// amount to change the claw servo position by
-	double clawDelta = 0.1;
+    final double ARM_UP = 1;
+    final double ARM_DOWN = .5;
+    boolean toggle = false;
+    boolean armToggle = false;
 
 	DcMotor motorRight;
 	DcMotor motorLeft;
 	DcMotor lift;
 	DcMotor winch;
 	Servo hook;
-//	Servo arm;//no
+    Servo arm;
+
 
 
 	/**
 	 * Constructor
 	 */
-	public K9TankDrive() {
+    public K9TankDrive() {
 
 	}
-
-	/*
-	 * Code to run when the op mode is first enabled goes here
-	 *
-	 * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#start()
-	 */
 	@Override
-	public void init() {
-		/*
+    public void init() {
+        /*
 		 * Use the hardwareMap to get the dc motors and servos by name. Note
 		 * that the names of the devices must match the names used when you
 		 * configured your robot and created the configuration file.
 		 */
 
-		/*
-		 * For the is on the left side of the bot.
-		 * demo Tetrix K9 bot we assume the following,
-		 *   There are two motors "motor_1" and "motor_2"
-		 *   "motor_1" is on the right side of the bot.
-		 *   "motor_2"
-		 * We also assume that there are two servos "servo_1" and "servo_6"
-		 *    "servo_1" controls the arm joint of the manipulator.
-		 *    "servo_6" controls the claw joint of the manipulator.
-		 */
 		motorRight = hardwareMap.dcMotor.get("motor2");
 		motorLeft = hardwareMap.dcMotor.get("motor1");
 		lift = hardwareMap.dcMotor.get("lift"); //arm up and down
-		winch = hardwareMap.dcMotor.get("winch"); //arm left and right
-		hook = hardwareMap.servo.get("hook");
-//		arm = hardwareMap.servo.get("arm");
-		motorLeft.setDirection(DcMotor.Direction.REVERSE);
-
-//		arm = hardwareMap.servo.get("servo_1");
-//		claw = hardwareMap.servo.get("servo_6");
-
-		// assign the starting position of the wrist and claw
-		armPosition = 0.2;
-		clawPosition = 0.2;
+        winch = hardwareMap.dcMotor.get("winch"); //arm extending
+        hook = hardwareMap.servo.get("hook");
+        arm = hardwareMap.servo.get("arm");
+        motorLeft.setDirection(DcMotor.Direction.REVERSE);
 	}
 
 	/*
@@ -130,54 +94,54 @@ public class K9TankDrive extends OpMode {
 	 * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#run()
 	 */
 	@Override
-	public void loop() {
+    public void loop() {
 
-		/*
-		 * Gamepad 1
-		 *
-		 * Gamepad 1 controls the motors via the left stick, and it controls the
-		 * wrist/claw via the a,b, x, y buttons
-		 */
+        int leftMotorPostion = motorLeft.getCurrentPosition();
+        int rightMotorPostion = motorRight.getCurrentPosition();
+        int liftMotorPostion = lift.getCurrentPosition();
+        int winchPosiion = winch.getCurrentPosition();
+        double hookPosition = hook.getPosition();
+        double armPosition = arm.getPosition();
 
-        // tank drive
-        // note that if y equal -1 then joystick is pushed all of the way forward.
 		float left = gamepad1.left_stick_y;
-//            if (left < .3 && left > -.3)
-//            {
-//                left = 0;
-//            }
-		float right = gamepad1.right_stick_y;
-
-		// clip the right/left values so that the values never exceed +/- 1
-//		right = Range.clip(right, -1, 1);
-//		left = Range.clip(left, -1, 1);
+        if (left < .3 && left > -.3) {
+            left = 0;
+        }
+        float right = gamepad1.right_stick_y;
 
 		// scale the joystick value to make it easier to control
 		// the robot more precisely at slower speeds.
 		right = (float)scaleInput(right);
 		left =  (float)scaleInput(left);
-		if (left < .15 && left > -.15) {
-			left = 0;
-		}
 
 		// write the values to the motors
 		motorRight.setPower(right);
 		motorLeft.setPower(left);
 
 		winch.setPower(-gamepad1.right_trigger + gamepad1.left_trigger);
-//    hook.setPosition(1 - gamepad1.right_trigger);
 		if (gamepad1.b) {
 			if (!toggle) {
 				if (hook.getPosition() > .7) {
 					hook.setPosition(HOOK_DOWN);
 				} else {
-					hook.setPosition(HOOK_UP);
-				}
+                    if (!(hookPosition >= 5)) //if hook is not at max
+                    {
+                        hook.setPosition(HOOK_UP);
+                    }
+                }
 				toggle = true;
 			}
 		} else {
 			toggle = false;
-		}
+        }
+
+        if (gamepad1.right_bumper) {
+            arm.setPosition(-.5);
+        } else if (gamepad1.left_bumper) {
+            arm.setPosition(.5);
+        } else {
+            arm.setPosition(0);
+        }
 
 
 		if (gamepad1.a) {
@@ -188,26 +152,6 @@ public class K9TankDrive extends OpMode {
 			lift.setPower(0);
 		}
 
-		// update the position of the arm.
-//		if (gamepad1.left_bumper) {
-//            arm.setPosition(ARM_RIGHT);
-//		}
-//		else if (gamepad1.right_bumper) {
-//            arm.setPosition(ARM_LEFT);
-//		}
-//        else
-//        {
-//            arm.setPosition(ARM_DEFAULT);
-//        }
-
-
-		// clip the position values so that they never exceed their allowed range.
-
-
-		// write position values to the wrist and claw servo
-//		arm.setPosition(armPosition);
-//		claw.setPosition(clawPosition);
-
 		/*
 		 * Send telemetry data back to driver station. Note that if we are using
 		 * a legacy NXT-compatible motor controller, then the getPower() method
@@ -216,11 +160,12 @@ public class K9TankDrive extends OpMode {
 		 */
 
 		telemetry.addData("Text", "*** Robot Data***");
-        telemetry.addData("arm", "arm:  " + String.format("%.2f", armPosition));
-        telemetry.addData("claw", "claw:  " + String.format("%.2f", clawPosition));
 		telemetry.addData("left tgt pwr",  "left  pwr: " + String.format("%.2f", left));
 		telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", right));
-	}
+        telemetry.addData("Winch", "winch postion: " + String.format("%.2f", winchPosiion));
+        telemetry.addData("hook", "hook position:  " + String.format("%.2f", hook.getPosition()));
+        telemetry.addData("arm", "arm position:  " + String.format("%.2f", arm.getPosition()));
+    }
 
 	/*
 	 * Code to run when the op mode is first disabled goes here

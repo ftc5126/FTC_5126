@@ -20,13 +20,7 @@ public class DiceAutonomous extends LinearOpMode {
         while (opModeIsActive()) {
             motorLeft.setPower(-.5);
             motorRight.setPower(.5);
-            sleep(5000);
-            motorLeft.setPower(0);
-            motorRight.setPower(0);
-            sleep(5000);
-            motorRight.setPower(.5);
-            motorLeft.setPower(.5);
-            sleep(5000);
+            sleep(10000);
             motorLeft.setPower(0);
             motorRight.setPower(0);
         }

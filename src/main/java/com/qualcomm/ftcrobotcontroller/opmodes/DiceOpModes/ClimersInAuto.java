@@ -12,5 +12,8 @@ public class ClimersInAuto extends LinearOpMode {
 
     public void runOpMode() throws InterruptedException {
         waitForStart();
+        motorLeft.setPower(.5);
+        motorRight.setPower(.5);
     }
+
 }
