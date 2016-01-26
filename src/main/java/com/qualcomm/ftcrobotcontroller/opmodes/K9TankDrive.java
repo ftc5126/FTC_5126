@@ -33,6 +33,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
@@ -63,6 +64,8 @@ public class K9TankDrive extends OpMode {
 	Servo hook;
     Servo arm;
 
+	double winchPower;
+
 
 
 	/**
@@ -81,11 +84,22 @@ public class K9TankDrive extends OpMode {
 
 		motorRight = hardwareMap.dcMotor.get("motor2");
 		motorLeft = hardwareMap.dcMotor.get("motor1");
+		motorRight.setDirection(DcMotor.Direction.REVERSE);
+		motorLeft.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+		motorRight.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+		motorLeft.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+		motorRight.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+
 		lift = hardwareMap.dcMotor.get("lift"); //arm up and down
         winch = hardwareMap.dcMotor.get("winch"); //arm extending
-        hook = hardwareMap.servo.get("hook");
-        arm = hardwareMap.servo.get("arm");
-        motorLeft.setDirection(DcMotor.Direction.REVERSE);
+		winch.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+		winch.setDirection(DcMotor.Direction.REVERSE);
+
+
+		hook = hardwareMap.servo.get("hook");
+		arm = hardwareMap.servo.get("arm");
+		hook.setPosition(HOOK_UP);
+
 	}
 
 	/*
@@ -98,10 +112,11 @@ public class K9TankDrive extends OpMode {
 
         int leftMotorPostion = motorLeft.getCurrentPosition();
         int rightMotorPostion = motorRight.getCurrentPosition();
-        int liftMotorPostion = lift.getCurrentPosition();
         int winchPosiion = winch.getCurrentPosition();
         double hookPosition = hook.getPosition();
         double armPosition = arm.getPosition();
+		winchPower = gamepad1.left_trigger - gamepad1.right_trigger;
+
 
 		float left = gamepad1.left_stick_y;
         if (left < .3 && left > -.3) {
@@ -117,8 +132,22 @@ public class K9TankDrive extends OpMode {
 		// write the values to the motors
 		motorRight.setPower(right);
 		motorLeft.setPower(left);
+		if (winchPower > 0.05) {
+			if (winch.getCurrentPosition() <= 0) {
+				winch.setPower(winchPower);
+			} else {
+				winch.setPower(0);
+			}
+		} else if (winchPower < -0.05) {
+			if (winch.getCurrentPosition() >= -5000) {
+				winch.setPower(winchPower);
+			} else {
+				winch.setPower(0);
+			}
+		} else {
+			winch.setPower(0);
+		}
 
-		winch.setPower(-gamepad1.right_trigger + gamepad1.left_trigger);
 		if (gamepad1.b) {
 			if (!toggle) {
 				if (hook.getPosition() > .7) {
@@ -136,12 +165,12 @@ public class K9TankDrive extends OpMode {
         }
 
         if (gamepad1.right_bumper) {
-            arm.setPosition(-.5);
-        } else if (gamepad1.left_bumper) {
-            arm.setPosition(.5);
-        } else {
+			arm.setPosition(1);
+		} else if (gamepad1.left_bumper) {
             arm.setPosition(0);
-        }
+		} else {
+			arm.setPosition(.5);
+		}
 
 
 		if (gamepad1.a) {
@@ -160,12 +189,12 @@ public class K9TankDrive extends OpMode {
 		 */
 
 		telemetry.addData("Text", "*** Robot Data***");
-		telemetry.addData("left tgt pwr",  "left  pwr: " + String.format("%.2f", left));
-		telemetry.addData("right tgt pwr", "right pwr: " + String.format("%.2f", right));
-        telemetry.addData("Winch", "winch postion: " + String.format("%.2f", winchPosiion));
-        telemetry.addData("hook", "hook position:  " + String.format("%.2f", hook.getPosition()));
-        telemetry.addData("arm", "arm position:  " + String.format("%.2f", arm.getPosition()));
-    }
+		telemetry.addData("left tgt pwr", "left dist " + String.format("%.2f", (double) leftMotorPostion));
+		telemetry.addData("right tgt pwr", "right dist" + String.format("%.2f", (double) rightMotorPostion));
+		telemetry.addData("Winch", "winch postion: " + String.format("%.2f", (double) winchPower));
+		telemetry.addData("hook", "hook position:  " + String.format("%.2f", (double) hook.getPosition()));
+		telemetry.addData("arm", "arm position:  " + String.format("%.2f", (double) arm.getPosition()));
+	}
 
 	/*
 	 * Code to run when the op mode is first disabled goes here
