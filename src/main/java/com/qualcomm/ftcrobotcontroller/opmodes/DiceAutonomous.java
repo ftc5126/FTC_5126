@@ -3,6 +3,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
+import com.qualcomm.robotcore.hardware.Servo;
 
 //
 //import com.qualcomm.ftcrobotcontroller.opmodes.DiceOpModes.AutonomousRobotInfo;
@@ -14,7 +15,7 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 public class DiceAutonomous extends LinearOpMode {
     DcMotor motor1 = hardwareMap.dcMotor.get("motor1");
     DcMotor motor2 = hardwareMap.dcMotor.get("motor2");
-
+    Servo arm = hardwareMap.servo.get("arm");
 
     final double encoderConversions = .014;
 
@@ -27,13 +28,15 @@ public class DiceAutonomous extends LinearOpMode {
 //            double rightInches = convertEncoders(motorRight.getCurrentPosition());
 //            double leftInches = convertEncoders(motorRight.getCurrentPosition());
 //            //move forward to mountain
-//            moveUsingEncoders(3, .5);
+//            moveUsingEncoders(50, .5);
 //            //turn till facing mountain
 //            turn(.8,.2);
 //            //move up mountain
 //            moveUsingEncoders(3, .5);
-            int dist = (int) (12 / encoderConversions);
-            moveUsingEncoders(dist, 0.5);
+            arm.setPosition(1); //sets arm to distance slightly up
+            sleep(500); // waits for 500 millseconds
+            arm.setPosition(5); //moves arm higher
+            moveUsingEncoders(12, 0.5); // move forward 12 encoder tics
         }
     }
 
@@ -59,14 +62,33 @@ public class DiceAutonomous extends LinearOpMode {
 //        motorRight.setPower(0);
 //    }
 //
-    public void moveUsingEncoders(int moveValue, double power) {
+    public void moveUsingEncoders(double moveValue, double power) {
+        double endVal = moveValue / encoderConversions;
+        motor1.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        motor2.setMode(DcMotorController.RunMode.RESET_ENCODERS);
 
         motor1.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
         motor2.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
-        motor1.setTargetPosition(moveValue);
-        motor2.setTargetPosition(moveValue);
         motor1.setPower(power);
         motor2.setPower(power);
+        motor1.setTargetPosition(endVal);
+        motor2.setTargetPosition(endVal);
+
+    }
+
+    public void turnUsingEncoders(double length, double power) {
+        double end = length / encoderConversions;
+        motor1.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        motor2.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+
+        motor1.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        motor2.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        motor1.setPower(power);
+        motor2.setPower(power);
+        motor1.setTargetPosition(end);
+        motor2.setTargetPosition(-end);
+
+
     }
 
 

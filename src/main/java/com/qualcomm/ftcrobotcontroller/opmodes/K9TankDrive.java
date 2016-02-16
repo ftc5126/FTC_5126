@@ -37,7 +37,7 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
-/**
+/*
  * TeleOp Mode
  * <p>
  * Enables control of the robot via the gamepad
@@ -52,9 +52,11 @@ public class K9TankDrive extends OpMode {
     // TETRIX VALUES.
 	final double HOOK_DOWN = .23;
 	final double HOOK_UP = 1;
-    final double ARM_UP = 1;
-    final double ARM_DOWN = .5;
-    boolean toggle = false;
+	final double ARM1_UP = 55 / 255.0;
+	final double ARM1_DOWN = 1.0;
+	final double ARM2_UP = 205 / 255.0;
+	final double ARM2_DOWN = 0;
+	boolean toggle = false;
     boolean armToggle = false;
 
 	DcMotor motorRight;
@@ -62,7 +64,8 @@ public class K9TankDrive extends OpMode {
 	DcMotor lift;
 	DcMotor winch;
 	Servo hook;
-    Servo arm;
+	Servo arm1;
+	Servo arm2;
 
 	double winchPower;
 
@@ -85,10 +88,11 @@ public class K9TankDrive extends OpMode {
 		motorRight = hardwareMap.dcMotor.get("motor2");
 		motorLeft = hardwareMap.dcMotor.get("motor1");
 		motorRight.setDirection(DcMotor.Direction.REVERSE);
+		//motorLeft.setDirection(DcMotor.Direction.REVERSE);
 		motorLeft.setMode(DcMotorController.RunMode.RESET_ENCODERS);
 		motorRight.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-		motorLeft.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-		motorRight.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+		motorLeft.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+		motorRight.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
 
 		lift = hardwareMap.dcMotor.get("lift"); //arm up and down
         winch = hardwareMap.dcMotor.get("winch"); //arm extending
@@ -97,8 +101,11 @@ public class K9TankDrive extends OpMode {
 
 
 		hook = hardwareMap.servo.get("hook");
-		arm = hardwareMap.servo.get("arm");
+		arm1 = hardwareMap.servo.get("arm1");
+		arm2 = hardwareMap.servo.get("arm2");
 		hook.setPosition(HOOK_UP);
+		arm1.setPosition(ARM1_UP);
+		arm2.setPosition(ARM2_UP);
 
 	}
 
@@ -114,7 +121,8 @@ public class K9TankDrive extends OpMode {
         int rightMotorPostion = motorRight.getCurrentPosition();
         int winchPosiion = winch.getCurrentPosition();
         double hookPosition = hook.getPosition();
-        double armPosition = arm.getPosition();
+		double arm1Position = arm1.getPosition();
+		double arm2Position = arm2.getPosition();
 		winchPower = gamepad1.left_trigger - gamepad1.right_trigger;
 
 
@@ -139,7 +147,7 @@ public class K9TankDrive extends OpMode {
 				winch.setPower(0);
 			}
 		} else if (winchPower < -0.05) {
-			if (winch.getCurrentPosition() >= -5000) {
+			if (winch.getCurrentPosition() >= -7500) {
 				winch.setPower(winchPower);
 			} else {
 				winch.setPower(0);
@@ -165,11 +173,18 @@ public class K9TankDrive extends OpMode {
         }
 
         if (gamepad1.right_bumper) {
-			arm.setPosition(1);
-		} else if (gamepad1.left_bumper) {
-            arm.setPosition(0);
+			if (!armToggle) {
+				if (arm1.getPosition() < 0.8) {
+					arm1.setPosition(ARM1_DOWN);
+					arm2.setPosition(ARM2_DOWN);
+				} else {
+					arm1.setPosition(ARM1_UP);
+					arm2.setPosition(ARM2_UP);
+				}
+				armToggle = true;
+			}
 		} else {
-			arm.setPosition(.5);
+			armToggle = false;
 		}
 
 
@@ -189,11 +204,13 @@ public class K9TankDrive extends OpMode {
 		 */
 
 		telemetry.addData("Text", "*** Robot Data***");
-		telemetry.addData("left tgt pwr", "left dist " + String.format("%.2f", (double) leftMotorPostion));
-		telemetry.addData("right tgt pwr", "right dist" + String.format("%.2f", (double) rightMotorPostion));
+		telemetry.addData("left tgt pwr", "left dist " + String.format("%.2f", gamepad1.left_stick_y));
+		telemetry.addData("right tgt pwr", "right dist" + String.format("%.2f", gamepad1.right_stick_y));
 		telemetry.addData("Winch", "winch postion: " + String.format("%.2f", (double) winchPower));
 		telemetry.addData("hook", "hook position:  " + String.format("%.2f", (double) hook.getPosition()));
-		telemetry.addData("arm", "arm position:  " + String.format("%.2f", (double) arm.getPosition()));
+		telemetry.addData("arm", "arm position:  " + String.format("%.2f", (double) arm1.getPosition()));
+		telemetry.addData("arm2", "arm position:  " + String.format("%.2f", (double) arm2.getPosition()));
+
 	}
 
 	/*
