@@ -32,7 +32,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. */
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
 //import com.qualcomm.ftcrobotcontroller.opmodes.DiceOpModes.com.qualcomm.ftcrobotcontroller.opmodes.DiceAutonomous;
-import com.qualcomm.ftcrobotcontroller.opmodes.DiceOpModes.DiceTeleop;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 
@@ -84,6 +83,7 @@ public class FtcOpModeRegister implements OpModeRegister {
 
     manager.register("TankDrive", K9TankDrive.class);
     manager.register("Autonomous", DiceAutonomous.class);
+    manager.register("LEDTest", LEDTest.class);
     //manager.register("LinearIrExample", LinearIrExample.class);
 
 
