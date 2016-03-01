@@ -2,6 +2,13 @@
 <items version="2" >
 
     <item
+        jar="C:\Users\InDenProCom\Documents\GitHub\FTC_5126\build\intermediates\exploded-aar\Hardware-release\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="1e813cd0f3937ee1d0b272907ce672b7f4ad2ea2">
+        <dex dex="C:\Users\InDenProCom\Documents\GitHub\FTC_5126\build\intermediates\pre-dexed\debug\classes-44b48a97186ecdf35a33f46641cb214ae5c9b18d.jar" />
+    </item>
+    <item
         jar="C:\Users\InDenProCom\Documents\GitHub\FTC_5126\build\intermediates\exploded-aar\ModernRobotics-release\jars\classes.jar"
         jumboMode="false"
         revision="21.1.2"
@@ -9,25 +16,25 @@
         <dex dex="C:\Users\InDenProCom\Documents\GitHub\FTC_5126\build\intermediates\pre-dexed\debug\classes-926224d7f777b53f41936950939ae577d5ef5c47.jar" />
     </item>
     <item
+        jar="C:\Users\InDenProCom\Documents\GitHub\FTC_5126\build\intermediates\exploded-aar\WirelessP2p-release\jars\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="ebf8372b5bc9dc9f596ed438df36481099d51c41">
+        <dex dex="C:\Users\InDenProCom\Documents\GitHub\FTC_5126\build\intermediates\pre-dexed\debug\classes-3f9c89c0e19478cde24f76a72a47b3256f8787ea.jar" />
+    </item>
+    <item
         jar="C:\Users\InDenProCom\Documents\GitHub\FTC_5126\build\intermediates\exploded-aar\FtcCommon-release\jars\classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="6da7d9bc8c9a82321450b6b4273d1746b6cade21">
+        sha1="81c82e1248666e3dba585aa2044cb6f367ec6066">
         <dex dex="C:\Users\InDenProCom\Documents\GitHub\FTC_5126\build\intermediates\pre-dexed\debug\classes-5089cfaf43192c383b11efc2687a5dec5622df1e.jar" />
     </item>
     <item
         jar="C:\Users\InDenProCom\Documents\GitHub\FTC_5126\build\intermediates\exploded-aar\RobotCore-release\jars\classes.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="2ec6f06847bccfe30fb8f8f75ce888721e4fd275">
+        sha1="141c9410c57da655ddebd85f577cc6b51811c525">
         <dex dex="C:\Users\InDenProCom\Documents\GitHub\FTC_5126\build\intermediates\pre-dexed\debug\classes-f87d5a735814a6d59c768f76be2ee9694bd619a2.jar" />
-    </item>
-    <item
-        jar="C:\Users\InDenProCom\Documents\GitHub\FTC_5126\build\intermediates\exploded-aar\Hardware-release\jars\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="55ecd0b0517650a2cffd06137a40de8af3bbbde3">
-        <dex dex="C:\Users\InDenProCom\Documents\GitHub\FTC_5126\build\intermediates\pre-dexed\debug\classes-44b48a97186ecdf35a33f46641cb214ae5c9b18d.jar" />
     </item>
     <item
         jar="C:\Users\InDenProCom\Documents\GitHub\FTC_5126\build\intermediates\exploded-aar\Analytics-release\jars\classes.jar"
@@ -35,13 +42,6 @@
         revision="21.1.2"
         sha1="23c74caa2b901107adc4d0aec343c5b8e8be86fb">
         <dex dex="C:\Users\InDenProCom\Documents\GitHub\FTC_5126\build\intermediates\pre-dexed\debug\classes-547d4f408b4287d43a0789a5e913dbf1abd96e86.jar" />
-    </item>
-    <item
-        jar="C:\Users\InDenProCom\Documents\GitHub\FTC_5126\build\intermediates\exploded-aar\WirelessP2p-release\jars\classes.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="ebf8372b5bc9dc9f596ed438df36481099d51c41">
-        <dex dex="C:\Users\InDenProCom\Documents\GitHub\FTC_5126\build\intermediates\pre-dexed\debug\classes-3f9c89c0e19478cde24f76a72a47b3256f8787ea.jar" />
     </item>
 
 </items>

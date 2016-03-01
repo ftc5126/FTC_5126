@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.robocol.Telemetry;
 
-
 //
 //import com.qualcomm.ftcrobotcontroller.opmodes.DiceOpModes.AutonomousRobotInfo;
 //
@@ -14,7 +13,13 @@ import com.qualcomm.robotcore.robocol.Telemetry;
 ///**
 // * Created by Emmy on 9/24/2015.
 // */
-public class DiceAutonomous extends LinearOpMode {
+public class BeaconAutonomous extends LinearOpMode {
+    DcMotor motor1;
+    DcMotor motor2;
+    Servo arm1;
+    Servo arm2;
+    Servo hook;
+
     final double HOOK_DOWN = .23;
     final double HOOK_UP = 1;
     final double ARM1_UP = 55 / 255.0;
@@ -22,15 +27,7 @@ public class DiceAutonomous extends LinearOpMode {
     final double ARM2_UP = 205 / 255.0;
     final double ARM2_DOWN = 0;
 
-    DcMotor motor1;
-    DcMotor motor2;
-    Servo arm1;
-    Servo arm2;
-    Servo hook;
-
-
-    final int encoderTicsForATile = 12320;
-    final int encoderTicsForHalfATile = 6160;
+    //    Servo arm = hardwareMap.servo.get("arm");
 
     final double encoderConversions = .004;
     final double turnConversions = .027;
@@ -55,11 +52,8 @@ public class DiceAutonomous extends LinearOpMode {
         sleep(100);
         turnUsingEncoders(55, .5);
         sleep(100);
-        moveUsingEncoders(34, .5);
+        moveUsingEncoders(70, .5);
         sleep(100);
-        turnUsingEncoders(95, .5);
-        sleep(100);
-        moveUsingEncoders(72, 1);
     }
 
     public void moveUsingEncoders(double moveValue, double power) {

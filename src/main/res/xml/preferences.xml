@@ -39,12 +39,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     android:title="@string/pref_change_wifi_channel">
 
     <PreferenceScreen
-      android:key="@string/pref_launch_settings"
-      android:title="@string/pref_change_wifi_channel">
+        android:title="@string/pref_change_wifi_channel"
+        android:key="@string/pref_launch_settings">
       <intent
         android:action="com.qualcomm.ftccommon.FtcWifiChannelSelectorActivity.intent.action.Launch"
-        android:targetClass="com.qualcomm.ftccommon.FtcWifiChannelSelectorActivity"
-        android:targetPackage="com.qualcomm.ftccommon" />
+          android:targetPackage="com.qualcomm.ftccommon"
+          android:targetClass="com.qualcomm.ftccommon.FtcWifiChannelSelectorActivity" />
     </PreferenceScreen>
   </PreferenceCategory>
 
@@ -52,21 +52,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     android:title="@string/pref_configure_robot_title">
 
     <PreferenceScreen
-      android:key="@string/pref_launch_configure"
-      android:title="@string/configure_activity">
+        android:title="@string/configure_activity"
+        android:key="@string/pref_launch_configure">
       <intent
         android:action="com.qualcomm.ftccommon.configuration.FtcLoadFileActivity.intent.action.Launch"
-        android:targetClass="com.qualcomm.ftccommon.configuration.FtcLoadFileActivity"
-        android:targetPackage="com.qualcomm.ftccommon" />
+          android:targetPackage="com.qualcomm.ftccommon"
+          android:targetClass="com.qualcomm.ftccommon.configuration.FtcLoadFileActivity" />
     </PreferenceScreen>
 
     <PreferenceScreen
-      android:key="@string/pref_launch_autoconfigure"
-      android:title="@string/title_activity_autoconfigure">
+        android:title="@string/title_activity_autoconfigure"
+        android:key="@string/pref_launch_autoconfigure">
       <intent
         android:action="com.qualcomm.ftccommon.configuration.FtcAutoconfigureActivity.intent.action.Launch"
-        android:targetClass="com.qualcomm.ftccommon.configuration.AutoConfigureActivity"
-        android:targetPackage="com.qualcomm.ftccommon" />
+          android:targetPackage="com.qualcomm.ftccommon"
+          android:targetClass="com.qualcomm.ftccommon.configuration.AutoConfigureActivity" />
     </PreferenceScreen>
   </PreferenceCategory>
 </PreferenceScreen>
